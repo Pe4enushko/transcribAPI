@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ORG_ID="83ecb774-8d38-4f52-86fd-214ca3e8bbdb"
-DATE="2024-05-04"
+DATE="2026-05-04"
 
 ENV_FILE="$(dirname "$0")/../.env"
 
@@ -51,7 +51,6 @@ RESPONSE="$(
     --data-urlencode "date=${DATE}" \
     -H "Authorization: Bearer ${TOKEN}"
 )"
-echo "Raw response: ${RESPONSE}"
 echo "${RESPONSE}" | python3 << 'EOF'
 import json, sys
 data = json.load(sys.stdin)

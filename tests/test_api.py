@@ -1,6 +1,6 @@
 """Integration tests for API endpoints — DB calls are mocked."""
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from unittest.mock import patch
 
 import pytest
@@ -156,6 +156,7 @@ FAKE_ROW = {
     "organization_id": uuid.UUID(ORG_ID),
     "conversation_id": uuid.UUID(CONV_ID),
     "created_at": datetime(2024, 1, 15, 10, 0, 0, tzinfo=timezone.utc),
+    "conv_date": date(2024, 1, 15),
     "dialog": "Hello",
     "score_1_start_and_relevance": 4,
     "score_2_request_understanding_and_relevance": 3,

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime
+from datetime import date, datetime
 from uuid import UUID
 from pydantic import BaseModel
 from typing import Optional
@@ -70,6 +70,7 @@ class ConsultRecord(BaseModel):
     organization_id: UUID
     conversation_id: UUID
     created_at: datetime
+    conv_date: date
     dialog: str
     score_1_start_and_relevance: Optional[int]
     score_2_request_understanding_and_relevance: Optional[int]

@@ -1,6 +1,6 @@
 """Unit tests for src/database.py — all psycopg2 calls are mocked."""
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from unittest.mock import MagicMock, patch, call
 
 import pytest
@@ -278,14 +278,14 @@ ROW_ID = str(uuid.uuid4())
 CREATED_AT = datetime(2024, 1, 15, 10, 0, 0, tzinfo=timezone.utc)
 
 FAKE_COLUMNS = [
-    "id", "organization_id", "conversation_id", "created_at", "dialog",
+    "id", "organization_id", "conversation_id", "created_at", "conv_date", "dialog",
     "score_1_start_and_relevance", "score_2_request_understanding_and_relevance",
     "score_3_dialog_logic", "score_4_objection_handling", "score_5_solution_promotion",
     "score_6_cta_and_result_fixation", "score_7_service_and_wording",
     "score_8_niche_constraints", "score_9_result_and_risk",
 ]
 FAKE_ROW = (
-    ROW_ID, ORG_ID, CONV_ID, CREATED_AT, "Hello",
+    ROW_ID, ORG_ID, CONV_ID, CREATED_AT, date(2024, 1, 15), "Hello",
     4, 3, 5, None, 2, 4, 5, None, 3,
 )
 
@@ -327,9 +327,9 @@ class TestGetConsultDataByOrgAndDate:
         _, _, cursor = self._setup_pool([])
         get_consult_data_by_org_and_date(ORG_ID, "2024-01-15")
         sql, params = cursor.execute.call_args[0]
-        assert "public.consultdata" in sql
+        assert "public.conversation_scores" in sql
         assert "organization_id" in sql
-        assert "created_at::date" in sql
+        assert "conv_date" in sql
         assert params == (ORG_ID, "2024-01-15")
 
     def test_connection_returned_on_success(self):

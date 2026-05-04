@@ -91,6 +91,7 @@ def get_consult_data_by_org_and_date(org_id: str, date: str) -> list[dict]:
                 organization_id,
                 conversation_id,
                 created_at,
+                conv_date,
                 dialog,
                 score_1_start_and_relevance,
                 score_2_request_understanding_and_relevance,
@@ -103,7 +104,7 @@ def get_consult_data_by_org_and_date(org_id: str, date: str) -> list[dict]:
                 score_9_result_and_risk
             FROM public.conversation_scores
             WHERE organization_id = %s
-              AND created_at::date = %s::date
+              AND conv_date = %s::date
             ORDER BY created_at
             """,
             (org_id, date),
