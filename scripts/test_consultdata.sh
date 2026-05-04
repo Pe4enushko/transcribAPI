@@ -44,16 +44,18 @@ print(json.load(sys.stdin)["access_token"])
 )"
 
 echo "Querying /consultdata — org: ${ORG_ID}  date: ${DATE}"
-RESPONSE="$(
-  curl -sS -X GET "${BASE_URL}/consultdata" \
-    -G \
-    --data-urlencode "organization_id=${ORG_ID}" \
-    --data-urlencode "date=${DATE}" \
-    -H "Authorization: Bearer ${TOKEN}"
-)"
-echo "${RESPONSE}" | python3 << 'EOF'
+TMPFILE="$(mktemp)"
+trap 'rm -f "$TMPFILE"' EXIT
+curl -sS -X GET "${BASE_URL}/consultdata" \
+  -G \
+  --data-urlencode "organization_id=${ORG_ID}" \
+  --data-urlencode "date=${DATE}" \
+  -H "Authorization: Bearer ${TOKEN}" \
+  -o "$TMPFILE"
+python3 - "$TMPFILE" << 'EOF'
 import json, sys
-data = json.load(sys.stdin)
+with open(sys.argv[1]) as f:
+    data = json.load(f)
 if "detail" in data:
     print("ERROR:", data["detail"])
     sys.exit(1)
