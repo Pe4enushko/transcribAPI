@@ -84,7 +84,7 @@ class ConsultRecord(BaseModel):
 
 class ConsultDataResponse(BaseModel):
     organization_id: str
-    date: str
+    date: date
     records: list[ConsultRecord]
 
 
@@ -196,7 +196,7 @@ async def query_transcription(
 @app.get("/consultdata", response_model=ConsultDataResponse)
 async def consult_data(
     organization_id: str,
-    date: str,
+    date: date,
     payload: dict = Depends(verify_jwt),
 ):
     """
@@ -204,12 +204,12 @@ async def consult_data(
 
     Query params:
     - organization_id: organisation identifier (plain text)
-    - date: date string in YYYY-MM-DD format
+    - date: date in YYYY-MM-DD format
 
     Requires valid JWT token in Authorization header: `Authorization: Bearer <token>`
     """
     try:
-        rows = get_consult_data_by_org_and_date(organization_id, date)
+        rows = get_consult_data_by_org_and_date(organization_id, str(date))
         records = [ConsultRecord(**row) for row in rows]
         return ConsultDataResponse(organization_id=organization_id, date=date, records=records)
     except Exception as e:
