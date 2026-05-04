@@ -19,5 +19,4 @@ build/
 dist/
 *.egg-info/
 
-check.sh
-checkrefresh.sh
+scripts/

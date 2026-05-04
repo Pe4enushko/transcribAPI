@@ -14,10 +14,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 uv pip install --python .venv/bin/python -r requirements.txt
 ```
 
-**Docker** (from `docker/`):
+**Docker:**
 ```bash
-docker build -f docker/Dockerfile .
-docker-compose -f docker/docker-compose.yml up
+docker build .
+docker-compose up
 ```
 
 **Manual testing scripts** (run from project root or any directory):

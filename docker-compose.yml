@@ -1,12 +1,10 @@
 services:
   transcrib-api:
     image: soavy/transcrib-api:v2
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
+    build: .
     restart: unless-stopped
     env_file:
-      - ../.env
+      - .env
     ports:
       - "${APP_PORT}:${APP_PORT}"
     networks:

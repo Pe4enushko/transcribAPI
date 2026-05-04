@@ -11,7 +11,6 @@ COPY requirements.txt ./
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY src/ ./src/
-COPY .env ./
 
 EXPOSE ${APP_PORT}
 
