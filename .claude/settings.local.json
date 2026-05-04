@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /home/okabe/projects/transcribAPI/tests)",
+      "Bash(touch /home/okabe/projects/transcribAPI/tests/__init__.py)",
+      "Bash(.venv/bin/pytest tests/test_database.py -v)"
+    ]
+  }
+}
