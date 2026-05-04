@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ORG_ID="your-org-uuid-here"
-DATE="2024-01-15"
+ORG_ID="83ecb774-8d38-4f52-86fd-214ca3e8bbdb"
+DATE="2024-05-04"
 
 ENV_FILE="$(dirname "$0")/../.env"
 
