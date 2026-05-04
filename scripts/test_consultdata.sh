@@ -49,21 +49,22 @@ curl -sS -X GET "${BASE_URL}/consultdata" \
   --data-urlencode "organization_id=${ORG_ID}" \
   --data-urlencode "date=${DATE}" \
   -H "Authorization: Bearer ${TOKEN}" \
-| python3 -c '
+| python3 << 'EOF'
 import json, sys
 data = json.load(sys.stdin)
 records = data.get("records", [])
-print(f"organization_id : {data[\"organization_id\"]}")
-print(f"date            : {data[\"date\"]}")
-print(f"records found   : {len(records)}")
+print("organization_id :", data["organization_id"])
+print("date            :", data["date"])
+print("records found   :", len(records))
 for i, r in enumerate(records, 1):
     print(f"\n--- record {i} ---")
-    print(f"  id              : {r[\"id\"]}")
-    print(f"  conversation_id : {r[\"conversation_id\"]}")
-    print(f"  created_at      : {r[\"created_at\"]}")
-    print(f"  dialog          : {r[\"dialog\"][:80]}{'..." if len(r["dialog"]) > 80 else ""}")
-    scores = {k: v for k, v in r.items() if k.startswith("score_")}
-    for name, val in scores.items():
-        print(f"  {name:<45}: {val}")
-'
+    print("  id              :", r["id"])
+    print("  conversation_id :", r["conversation_id"])
+    print("  created_at      :", r["created_at"])
+    dialog = r["dialog"]
+    print("  dialog          :", dialog[:80] + ("..." if len(dialog) > 80 else ""))
+    for name, val in r.items():
+        if name.startswith("score_"):
+            print(f"  {name:<45}: {val}")
+EOF
 echo
