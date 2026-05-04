@@ -55,6 +55,9 @@ echo "Raw response: ${RESPONSE}"
 echo "${RESPONSE}" | python3 << 'EOF'
 import json, sys
 data = json.load(sys.stdin)
+if "detail" in data:
+    print("ERROR:", data["detail"])
+    sys.exit(1)
 records = data.get("records", [])
 print("organization_id :", data["organization_id"])
 print("date            :", data["date"])
