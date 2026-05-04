@@ -273,19 +273,18 @@ class TestGetRecordByFilename:
 # ---------------------------------------------------------------------------
 
 ORG_ID = str(uuid.uuid4())
-CONV_ID = str(uuid.uuid4())
 ROW_ID = str(uuid.uuid4())
 CREATED_AT = datetime(2024, 1, 15, 10, 0, 0, tzinfo=timezone.utc)
 
 FAKE_COLUMNS = [
-    "id", "organization_id", "conversation_id", "created_at", "conv_date", "dialog",
+    "id", "organization_id", "created_at", "conv_date", "dialog",
     "score_1_start_and_relevance", "score_2_request_understanding_and_relevance",
     "score_3_dialog_logic", "score_4_objection_handling", "score_5_solution_promotion",
     "score_6_cta_and_result_fixation", "score_7_service_and_wording",
     "score_8_niche_constraints", "score_9_result_and_risk",
 ]
 FAKE_ROW = (
-    ROW_ID, ORG_ID, CONV_ID, CREATED_AT, date(2024, 1, 15), "Hello",
+    ROW_ID, ORG_ID, CREATED_AT, date(2024, 1, 15), "Hello",
     4, 3, 5, None, 2, 4, 5, None, 3,
 )
 

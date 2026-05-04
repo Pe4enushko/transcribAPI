@@ -89,7 +89,6 @@ def get_consult_data_by_org_and_date(org_id: str, date: str) -> list[dict]:
             SELECT
                 id,
                 organization_id,
-                conversation_id,
                 created_at,
                 conv_date,
                 dialog,

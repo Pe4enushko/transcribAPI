@@ -148,13 +148,11 @@ class TestQueryTranscription:
 # ---------------------------------------------------------------------------
 
 ORG_ID = str(uuid.uuid4())
-CONV_ID = str(uuid.uuid4())
 ROW_ID = str(uuid.uuid4())
 
 FAKE_ROW = {
     "id": uuid.UUID(ROW_ID),
-    "organization_id": uuid.UUID(ORG_ID),
-    "conversation_id": uuid.UUID(CONV_ID),
+    "organization_id": ORG_ID,
     "created_at": datetime(2024, 1, 15, 10, 0, 0, tzinfo=timezone.utc),
     "conv_date": date(2024, 1, 15),
     "dialog": "Hello",

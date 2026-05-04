@@ -66,7 +66,6 @@ print("records found   :", len(records))
 for i, r in enumerate(records, 1):
     print(f"\n--- record {i} ---")
     print("  id              :", r["id"])
-    print("  conversation_id :", r["conversation_id"])
     print("  created_at      :", r["created_at"])
     dialog = r["dialog"]
     print("  dialog          :", dialog[:80] + ("..." if len(dialog) > 80 else ""))

@@ -67,8 +67,7 @@ class TranscriptionResponse(BaseModel):
 
 class ConsultRecord(BaseModel):
     id: UUID
-    organization_id: UUID
-    conversation_id: UUID
+    organization_id: str
     created_at: datetime
     conv_date: date
     dialog: str
@@ -204,7 +203,7 @@ async def consult_data(
     Protected endpoint. Returns all rows from the consult table for a given organization_id and date.
 
     Query params:
-    - organization_id: organisation UUID
+    - organization_id: organisation identifier (plain text)
     - date: date string in YYYY-MM-DD format
 
     Requires valid JWT token in Authorization header: `Authorization: Bearer <token>`
