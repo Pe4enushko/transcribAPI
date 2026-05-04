@@ -44,12 +44,15 @@ print(json.load(sys.stdin)["access_token"])
 )"
 
 echo "Querying /consultdata — org: ${ORG_ID}  date: ${DATE}"
-curl -sS -X GET "${BASE_URL}/consultdata" \
-  -G \
-  --data-urlencode "organization_id=${ORG_ID}" \
-  --data-urlencode "date=${DATE}" \
-  -H "Authorization: Bearer ${TOKEN}" \
-| python3 << 'EOF'
+RESPONSE="$(
+  curl -sS -X GET "${BASE_URL}/consultdata" \
+    -G \
+    --data-urlencode "organization_id=${ORG_ID}" \
+    --data-urlencode "date=${DATE}" \
+    -H "Authorization: Bearer ${TOKEN}"
+)"
+echo "Raw response: ${RESPONSE}"
+echo "${RESPONSE}" | python3 << 'EOF'
 import json, sys
 data = json.load(sys.stdin)
 records = data.get("records", [])
