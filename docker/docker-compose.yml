@@ -1,0 +1,17 @@
+services:
+  transcrib-api:
+    image: soavy/transcrib-api:v2
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    networks:
+      - n8n_net
+
+networks:
+  n8n_net:
+    external: true

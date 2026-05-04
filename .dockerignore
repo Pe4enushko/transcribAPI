@@ -1,0 +1,23 @@
+# Python cache and virtualenv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+
+# Local env and editor files
+.env
+.vscode/
+.idea/
+
+# Git metadata
+.git/
+.gitignore
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+check.sh
+checkrefresh.sh
