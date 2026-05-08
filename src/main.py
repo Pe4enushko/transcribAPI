@@ -33,7 +33,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://193.42.127.209"],  # какие origins разрешены
+    allow_origins=["https://r-d.space/"],  # какие origins разрешены
     allow_credentials=True,                  # разрешить куки и авторизацию
     allow_methods=["GET", "POST"],  # какие методы
     allow_headers=["Authorization", "Content-Type"], # какие заголовки
