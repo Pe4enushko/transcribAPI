@@ -66,7 +66,7 @@ class TranscriptionResponse(BaseModel):
 
 
 class ConsultRecord(BaseModel):
-    id: UUID
+    id: str
     organization_id: str
     created_at: datetime
     conv_date: date
