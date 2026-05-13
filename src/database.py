@@ -100,7 +100,9 @@ def get_consult_data_by_org_and_date(org_id: str, date: str) -> list[dict]:
                 score_6_cta_and_result_fixation,
                 score_7_service_and_wording,
                 score_8_niche_constraints,
-                score_9_result_and_risk
+                score_9_result_and_risk,
+                reason,
+                result
             FROM public.conversation_scores
             WHERE organization_id = %s
               AND conv_date = %s::date

@@ -80,6 +80,8 @@ class ConsultRecord(BaseModel):
     score_7_service_and_wording: Optional[int]
     score_8_niche_constraints: Optional[int]
     score_9_result_and_risk: Optional[int]
+    reason: Optional[str]
+    result: Optional[str]
 
 
 class ConsultDataResponse(BaseModel):
