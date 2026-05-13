@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, Request, status
+from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import date, datetime
@@ -38,6 +39,12 @@ app.add_middleware(
     allow_methods=["GET", "POST"],  # какие методы
     allow_headers=["Authorization", "Content-Type"], # какие заголовки
 )
+
+
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request: Request, exc: Exception):
+    logger.error("Unhandled exception: %s %s", request.method, request.url, exc_info=exc)
+    return JSONResponse(status_code=500, content={"detail": str(exc)})
 
 
 # Security scheme
@@ -189,6 +196,7 @@ async def query_transcription(
     except HTTPException:
         raise
     except Exception as e:
+        logger.error("Error in query_transcription", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Database error: {str(e)}"
@@ -215,6 +223,7 @@ async def consult_data(
         records = [ConsultRecord(**row) for row in rows]
         return ConsultDataResponse(organization_id=organization_id, date=date, records=records)
     except Exception as e:
+        logger.error("Error in consult_data", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Database error: {str(e)}",

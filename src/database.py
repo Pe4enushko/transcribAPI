@@ -24,9 +24,9 @@ def init_connection_pool():
             password=DB_PASSWORD,
             database=DB_NAME
         )
-        print("Database connection pool initialized")
-    except Exception as e:
-        print(f"Failed to initialize connection pool: {e}")
+        logger.info("Database connection pool initialized")
+    except Exception:
+        logger.error("Failed to initialize connection pool", exc_info=True)
         raise
 
 
@@ -41,9 +41,9 @@ def init_consult_connection_pool():
             password=CONSULT_DB_PASSWORD,
             database=CONSULT_DB_NAME
         )
-        print("Consult database connection pool initialized")
-    except Exception as e:
-        print(f"Failed to initialize consult connection pool: {e}")
+        logger.info("Consult database connection pool initialized")
+    except Exception:
+        logger.error("Failed to initialize consult connection pool", exc_info=True)
         raise
 
 
@@ -72,10 +72,10 @@ def return_consult_connection(conn):
 def close_all_connections():
     if connection_pool is not None:
         connection_pool.closeall()
-        print("All database connections closed")
+        logger.info("All database connections closed")
     if consult_connection_pool is not None:
         consult_connection_pool.closeall()
-        print("All consult database connections closed")
+        logger.info("All consult database connections closed")
 
 
 def get_consult_data_by_org_and_date(org_id: str, date: str) -> list[dict]:
@@ -101,8 +101,8 @@ def get_consult_data_by_org_and_date(org_id: str, date: str) -> list[dict]:
                 score_7_service_and_wording,
                 score_8_niche_constraints,
                 score_9_result_and_risk,
-                "Reason",
-                "Result"
+                "Reason" AS reason,
+                "Result" AS result
             FROM public.conversation_scores
             WHERE organization_id = %s
               AND conv_date = %s::date
@@ -115,8 +115,8 @@ def get_consult_data_by_org_and_date(org_id: str, date: str) -> list[dict]:
         cursor.close()
         logger.info("Consult query returned %d rows", len(rows))
         return [dict(zip(columns, row)) for row in rows]
-    except Exception as e:
-        print(f"Consult database error: {e}")
+    except Exception:
+        logger.error("Consult database error", exc_info=True)
         raise
     finally:
         if conn:
@@ -145,8 +145,8 @@ def get_record_by_filename(filename: str) -> Optional[dict]:
             return {"filename": filename, "transcription": result[0], "dialogs": result[1]}
         return None
         
-    except Exception as e:
-        print(f"Database error: {e}")
+    except Exception:
+        logger.error("Database error", exc_info=True)
         raise
     finally:
         if conn:
