@@ -87,7 +87,7 @@ def get_consult_data_by_org_and_date(org_id: str, date: str) -> list[dict]:
         cursor.execute(
             """
             SELECT
-                id,
+                id::text,
                 organization_id,
                 created_at,
                 conv_date,
