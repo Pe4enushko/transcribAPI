@@ -151,7 +151,7 @@ ORG_ID = str(uuid.uuid4())
 ROW_ID = str(uuid.uuid4())
 
 FAKE_ROW = {
-    "id": uuid.UUID(ROW_ID),
+    "id": ROW_ID,
     "organization_id": ORG_ID,
     "created_at": datetime(2024, 1, 15, 10, 0, 0, tzinfo=timezone.utc),
     "conv_date": date(2024, 1, 15),
@@ -165,6 +165,8 @@ FAKE_ROW = {
     "score_7_service_and_wording": 5,
     "score_8_niche_constraints": None,
     "score_9_result_and_risk": 3,
+    "reason": None,
+    "result": None,
 }
 
 

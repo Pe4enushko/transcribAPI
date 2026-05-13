@@ -1,6 +1,7 @@
 services:
   transcrib-apiv2:
     image: soavy/transcrib-api:v4
+    container_name: transcrib-api
     build: .
     restart: unless-stopped
     env_file:

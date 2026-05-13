@@ -282,10 +282,12 @@ FAKE_COLUMNS = [
     "score_3_dialog_logic", "score_4_objection_handling", "score_5_solution_promotion",
     "score_6_cta_and_result_fixation", "score_7_service_and_wording",
     "score_8_niche_constraints", "score_9_result_and_risk",
+    "reason", "result",
 ]
 FAKE_ROW = (
     ROW_ID, ORG_ID, CREATED_AT, date(2024, 1, 15), "Hello",
     4, 3, 5, None, 2, 4, 5, None, 3,
+    None, None,
 )
 
 
