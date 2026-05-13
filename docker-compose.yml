@@ -1,6 +1,6 @@
 services:
-  transcrib-api:
-    image: soavy/transcrib-api:v3
+  transcrib-apiv2:
+    image: soavy/transcrib-api:v4
     build: .
     restart: unless-stopped
     env_file:
